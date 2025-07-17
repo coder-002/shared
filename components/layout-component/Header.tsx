@@ -1,4 +1,17 @@
-import { Avatar, Button, Dropdown, Grid, MenuProps, Typography } from "antd";
+import {
+  Avatar,
+  Button,
+  Collapse,
+  CollapseProps,
+  DatePicker,
+  Dropdown,
+  Form,
+  Grid,
+  Input,
+  MenuProps,
+  Modal,
+  Typography,
+} from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
 import { useTitle } from "@/shared/shared/store/store";
@@ -12,12 +25,14 @@ import Time from "@/shared/components/layout-component/TIme";
 import { MdOutlineCalendarMonth, MdOutlineColorLens } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { BiUser } from "react-icons/bi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { brandThemes } from "@/shared/theme/test-theme";
 import { useLocale } from "@/shared/context/LocaleContext";
 import { useLocaleStore } from "@/shared/shared/store/localeStore";
 import { MainSearch } from "@/shared/layout/MainSearch";
 import { useMenu } from "@/shared/context/MenuContext";
+import { dateDiff, formatDate } from "@/shared/helper/date-helper/date-service";
+import { DatePickerNp } from "../date-picker/DatePickerNp";
 
 const Header = () => {
   const { useBreakpoint } = Grid;
@@ -36,6 +51,37 @@ const Header = () => {
   const setLanguage = useLocaleStore((state) => state.setLanguage);
   const language = useLocaleStore((state) => state.language);
   const meta = useAuth();
+
+  const [duration, setDuration] = useState<number>();
+  const [durationAd, setDurationAd] = useState<number>();
+  const [fromDateAd, setFromDateAd] = useState<Date>(new Date());
+  const [toDateAd, setToDateAd] = useState<Date>(new Date());
+  const [fromDateNp, setFromDateNp] = useState<Date>(new Date());
+  const [toDateNp, setToDateNp] = useState<Date>(new Date());
+  const [bsDateConverter, setBsDateConverter] = useState<Date>(new Date());
+  const [adDateConverter, setAdDateConverter] = useState<Date>(new Date());
+
+  const [form3] = Form.useForm();
+
+  useEffect(() => {
+    setDuration(dateDiff(fromDateAd, toDateAd));
+  }, [toDateAd]);
+
+  useEffect(() => {
+    setDurationAd(dateDiff(fromDateNp, toDateNp));
+  }, [toDateNp]);
+
+  const handleCancel = () => {
+    setOpen(false);
+    setAdDateConverter(new Date());
+    setBsDateConverter(new Date());
+    setDurationAd(0);
+    setDuration(0);
+    setFromDateAd(new Date());
+    setToDateAd(new Date());
+    setFromDateNp(new Date());
+    setToDateNp(new Date());
+  };
 
   const themeItems: MenuProps["items"] = Object.keys(brandThemes).map(
     (brandKey, i) => {
@@ -59,6 +105,93 @@ const Header = () => {
       };
     }
   );
+
+  const items: CollapseProps["items"] = [
+    {
+      key: "1",
+      label: localize("DateConvertor"),
+      children: (
+        <div style={{ display: "flex", gap: "20px" }}>
+          <Form.Item label={localize("DateAD")}>
+            <Input
+              type="date"
+              value={formatDate(bsDateConverter)}
+              onChange={(e) => {
+                setAdDateConverter(new Date(e.target.value));
+                setBsDateConverter(new Date(e.target.value));
+              }}
+              style={{ width: 200 }}
+            />
+          </Form.Item>
+          <Form.Item label={localize("DateBS")}>
+            <DatePickerNp
+              dateAd={adDateConverter}
+              onChange={(value) => {
+                setBsDateConverter(new Date(value || ""));
+                setAdDateConverter(new Date(value || ""));
+              }}
+            />
+          </Form.Item>
+        </div>
+      ),
+    },
+    {
+      key: "2",
+      label: "Duration finder in BS",
+      children: (
+        <>
+          <Form style={{ display: "flex", gap: "20px" }}>
+            <Form.Item>
+              <DatePickerNp
+                dateAd={fromDateNp}
+                onChange={(val) => {
+                  setFromDateNp(new Date(val || ""));
+                }}
+              />
+            </Form.Item>
+            <Form.Item>
+              <DatePickerNp
+                dateAd={toDateNp}
+                onChange={(val) => {
+                  setToDateNp(new Date(val || ""));
+                }}
+              />
+            </Form.Item>
+          </Form>
+          <Typography.Text>Days Count : {durationAd}</Typography.Text>
+        </>
+      ),
+    },
+    {
+      key: "3",
+      label: "Duration finder in AD",
+      children: (
+        <>
+          <Form form={form3} style={{ display: "flex", gap: "20px" }}>
+            <Form.Item name="fromDateAd">
+              <DatePicker
+                size={"large"}
+                onChange={(value) => {
+                  setFromDateAd(value.toDate());
+                }}
+                style={{ width: 200 }}
+              />
+            </Form.Item>
+            <Form.Item name="toDateAd">
+              <DatePicker
+                size={"large"}
+                onChange={(value) => {
+                  setToDateAd(value.toDate());
+                }}
+                style={{ width: 200 }}
+              />
+            </Form.Item>
+          </Form>
+          <Typography.Text>Days Count : {duration}</Typography.Text>
+        </>
+      ),
+    },
+  ];
 
   const localeLanguages: MenuProps["items"] = [
     {
@@ -235,6 +368,15 @@ const Header = () => {
           />
         </div>
       </div>
+
+      <Modal
+        open={open}
+        footer={null}
+        title="Date Service"
+        onCancel={handleCancel}
+      >
+        <Collapse items={items} defaultActiveKey={["1"]} onChange={() => {}} />
+      </Modal>
     </>
   );
 };

@@ -36,3 +36,14 @@ body {
   border-radius: 10px;
   outline: 1px solid rgb(241, 243, 244);
 }
+
+.ant-input {
+  font-weight: 500;
+  background-color: inherit;
+  padding: 4px 11px;
+  line-height: 1.5714285714;
+  display: inline-block;
+  width: 100%;
+  min-width: 0;
+  border-radius: 5px;
+}

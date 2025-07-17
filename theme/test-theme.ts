@@ -88,7 +88,7 @@ export const getThemeConfig = (brandKey: string = "default"): ThemeConfig => {
 
   const components: ThemeConfig["components"] = {
     ...{
-      fontSize: 15,
+      fontSize: 14,
       fontSizeHeading1: 32,
       fontSizeHeading2: 24,
       fontSizeHeading3: 20,
