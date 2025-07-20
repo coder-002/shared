@@ -6,7 +6,7 @@ export const api = {
   },
   branch: {
     currentBranch: "/branch/current",
-    allBranches: "/branch/all",
+    allBranches: "/branch/all/ui",
     branchById: "/branch/{id}",
   },
   menu: {

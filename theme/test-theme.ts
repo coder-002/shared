@@ -49,7 +49,7 @@ export const brandThemes: Record<string, BrandTheme> = {
     disabledColor: "#e6ccb3",
     linkColor: "#cc5200",
     linkHoverColor: "#ff751a",
-    borderRadius: 8,
+    borderRadius: 6,
     boxShadow: "0 4px 12px rgba(255, 102, 0, 0.2)",
   },
   brandGreen: {
@@ -62,7 +62,7 @@ export const brandThemes: Record<string, BrandTheme> = {
     disabledColor: "#c8e6c9",
     linkColor: "#388e3c",
     linkHoverColor: "#66bb6a",
-    borderRadius: 8,
+    borderRadius: 6,
     boxShadow: "0 4px 12px rgba(46, 125, 50, 0.2)",
   },
 };
@@ -122,7 +122,7 @@ export const getThemeConfig = (brandKey: string = "default"): ThemeConfig => {
     },
     Table: {
       colorText: brand.textColor,
-      headerBg: brand.colorPrimary + "10",
+      headerBg: brand.colorPrimary + "30",
       headerColor: brand.headingColor,
       fontSize: 14,
     },
@@ -135,12 +135,21 @@ export const getThemeConfig = (brandKey: string = "default"): ThemeConfig => {
       itemSelectedColor: brand.colorPrimary,
       fontSize: 14,
     },
+    Tooltip: {
+      colorTextLightSolid: brand.textColor,
+      colorBgSpotlight: brand.backgroundColor,
+      fontSize: 14,
+    },
     Modal: {
       titleColor: brand.headingColor,
     },
     Select: {
       colorText: brand.textColor,
+      colorTextPlaceholder: brand.labelColor,
+      colorBgContainer: brand.backgroundColor,
+      colorBorder: brand.borderColor,
       fontSize: 14,
+      controlItemBgActive: brand.colorPrimary + "60",
     },
     Alert: {
       colorText: brand.textColor,
