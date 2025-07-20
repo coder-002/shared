@@ -15,7 +15,7 @@ const DefaultLayout = ({ children }: { children: ReactNode }) => {
           <Layout>
             <Layout.Content
               style={{
-                padding: 24,
+                padding: 12,
                 margin: 0,
                 marginBottom: "12px",
                 marginRight: "12px",

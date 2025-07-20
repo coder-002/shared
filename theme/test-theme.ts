@@ -122,7 +122,7 @@ export const getThemeConfig = (brandKey: string = "default"): ThemeConfig => {
     },
     Table: {
       colorText: brand.textColor,
-      headerBg: brand.colorPrimary + "30",
+      // headerBg: brand.colorPrimary + "30",
       headerColor: brand.headingColor,
       fontSize: 14,
     },

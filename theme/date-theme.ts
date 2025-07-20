@@ -12,7 +12,11 @@ export function applyThemeCSSVars(themeKey: string) {
   const root = document.documentElement;
 
   root.style.setProperty("--background-color", theme.backgroundColor),
-    root.style.setProperty("--border-color", theme.borderColor),
+    root.style.setProperty(
+      "--background-color-transparent-55",
+      hexToRgba(theme.backgroundColor, 0.55)
+    );
+  root.style.setProperty("--border-color", theme.borderColor),
     root.style.setProperty("--primary-color", theme.colorPrimary);
   root.style.setProperty(
     "--primary-color-transparent-35",
