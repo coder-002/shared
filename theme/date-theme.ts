@@ -11,7 +11,8 @@ export function applyThemeCSSVars(themeKey: string) {
   const theme = brandThemes[themeKey] || brandThemes.default;
   const root = document.documentElement;
 
-  root.style.setProperty("--primary-color", theme.colorPrimary);
+  root.style.setProperty("--background-color", theme.backgroundColor),
+    root.style.setProperty("--primary-color", theme.colorPrimary);
   root.style.setProperty(
     "--primary-color-transparent-35",
     hexToRgba(theme.colorPrimary, 0.25)

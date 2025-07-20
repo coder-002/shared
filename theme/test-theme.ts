@@ -27,7 +27,7 @@ export const brandThemes: Record<string, BrandTheme> = {
     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
   },
   dark: {
-    colorPrimary: "#69b1ff",
+    colorPrimary: "#4dabf7",
     backgroundColor: "#1e1e2f",
     textColor: "#f0f0f0",
     headingColor: "#cdd9ed",
@@ -146,8 +146,8 @@ export const getThemeConfig = (brandKey: string = "default"): ThemeConfig => {
     Select: {
       colorText: brand.textColor,
       colorTextPlaceholder: brand.labelColor,
-      colorBgContainer: brand.backgroundColor,
-      colorBorder: brand.borderColor,
+      colorBorder: brand.colorPrimary,
+      colorBgContainer: brand.backgroundColor + "100",
       fontSize: 14,
       controlItemBgActive: brand.colorPrimary + "60",
     },

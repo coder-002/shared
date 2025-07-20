@@ -12,7 +12,7 @@ import {
   getNpDate,
   parseNpDate,
 } from "@/shared/helper/date-helper/date-service";
-import { Input, InputRef, Popover, Tooltip } from "antd";
+import { Button, Input, InputRef, Popover, Select, Tooltip } from "antd";
 import { isEmpty } from "lodash";
 import { CalendarOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useAuth } from "@/shared/context/AuthContext.tsx";
@@ -521,34 +521,38 @@ const NepaliDatePicker = (props: TNepaliDatePickerProps) => {
             </div>
           )}
           <div className={"datepicker-header"}>
-            <button onClick={() => previousYearClick()}>&lt;&lt;</button>
-            <button onClick={() => previousMonthClick()}>&lt;</button>
-            <select
+            <Button onClick={() => previousYearClick()}>&lt;&lt;</Button>
+            <Button onClick={() => previousMonthClick()}>&lt;</Button>
+            <Select
               id={"yearSelect"}
               value={activeYear}
-              onChange={(e) => setActiveYear(Number(e.target.value))}
+              onChange={(e) => setActiveYear(Number(e))}
             >
               {years.map((x) => (
-                <option className={"picker-select-options"} value={x} key={x}>
+                <Select.Option
+                  className={"picker-select-options"}
+                  value={x}
+                  key={x}
+                >
                   {localize(x.toString().padStart(4, "0") as any)}
-                </option>
+                </Select.Option>
               ))}
-            </select>
-            <select
+            </Select>
+            <Select
               id="monthSelect"
               value={activeMonth}
-              onChange={(e) => setActiveMonth(Number(e.target.value))}
+              onChange={(e) => setActiveMonth(Number(e))}
             >
               {monthNames.map((x, i) => (
-                <option
+                <Select.Option
                   value={i + 1}
                   key={i}
                   className={"picker-month-select-options"}
                 >
                   {localize(x as any)}
-                </option>
+                </Select.Option>
               ))}
-            </select>
+            </Select>
             <Tooltip title={localize("DateDiff")}>
               <button
                 className={diffMode ? "active" : ""}
