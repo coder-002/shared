@@ -109,7 +109,8 @@ export const getThemeConfig = (brandKey: string = "default"): ThemeConfig => {
       colorPrimaryActive: brand.colorPrimary,
     },
     Menu: {
-      colorItemBgSelected: brand.colorPrimary + "20", // Slight transparency
+      colorItemBgSelected: brand.colorPrimary + "20",
+      fontSize: 14,
     },
     Form: {
       labelColor: brand.labelColor,
@@ -132,6 +133,7 @@ export const getThemeConfig = (brandKey: string = "default"): ThemeConfig => {
     Tabs: {
       colorText: brand.textColor,
       itemSelectedColor: brand.colorPrimary,
+      fontSize: 14,
     },
     Modal: {
       titleColor: brand.headingColor,

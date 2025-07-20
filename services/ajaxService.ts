@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import { isRunningOnLocalHost } from "../helper/urlHelper";
 import { AuthorizedApiRequest } from "./interceptor/axiosService";
 
+export const dashboardUrl = "/home/";
 export const baseUrl = isRunningOnLocalHost()
   ? "http://168.119.14.23:8000"
   : "";

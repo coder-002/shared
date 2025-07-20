@@ -11,11 +11,11 @@ import {
   useLayoutStore,
   useSidebarDrawerStore,
 } from "@/shared/shared/store/layoutStore";
-import { Link } from "@tanstack/react-router";
 import { Button, Card, Menu, MenuProps, Popover, Typography } from "antd";
 import Sider from "antd/es/layout/Sider";
 import React, { useCallback, useEffect, useState } from "react";
 import { FaAppStore } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const localize = useLocale();

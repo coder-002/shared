@@ -1,9 +1,15 @@
-import { Meta, useGetMeta } from "@/shared/services/user/service-user";
-import { ReactNode } from "@tanstack/react-router";
-import { createContext, useContext, useEffect, useState } from "react";
+import { useGetMeta } from "@/shared/services/user/service-user";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useUserMetaStore } from "../shared/store/store";
 import { useGetCurrentBranch } from "../services/branches/service-branch";
 import Loader from "../components/Loader/Loader";
+import { Meta } from "../model/user/UserMeta";
 
 const defaultMeta: Meta = {
   allowAdjustmentEntry: false,

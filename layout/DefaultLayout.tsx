@@ -1,9 +1,9 @@
 import { Layout } from "antd";
 import Footer from "@/shared/components/layout-component/Footer";
-import type { ReactNode } from "@tanstack/react-router";
 import Header from "@/shared/components/layout-component/Header";
 import Providers from "@/shared/provider/Providers";
 import Sidebar from "@/shared/components/layout-component/Sidebar";
+import { ReactNode } from "react";
 
 const DefaultLayout = ({ children }: { children: ReactNode }) => {
   return (

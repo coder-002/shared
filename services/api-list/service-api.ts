@@ -1,6 +1,8 @@
 export const api = {
   user: {
     meta: "/user/meta",
+    users: "/user",
+    userRole: "/role",
   },
   branch: {
     currentBranch: "/branch/current",
