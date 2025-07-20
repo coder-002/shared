@@ -133,6 +133,7 @@ export const getThemeConfig = (brandKey: string = "default"): ThemeConfig => {
     Tabs: {
       colorText: brand.textColor,
       itemSelectedColor: brand.colorPrimary,
+      itemColor: brand.textColor,
       fontSize: 14,
     },
     Tooltip: {
@@ -146,7 +147,7 @@ export const getThemeConfig = (brandKey: string = "default"): ThemeConfig => {
     Select: {
       colorText: brand.textColor,
       colorTextPlaceholder: brand.labelColor,
-      colorBorder: brand.colorPrimary,
+      colorBorder: brand.borderColor,
       colorBgContainer: brand.backgroundColor + "100",
       fontSize: 14,
       controlItemBgActive: brand.colorPrimary + "60",

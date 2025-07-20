@@ -47,3 +47,7 @@ body {
   min-width: 0;
   border-radius: 5px;
 }
+
+.ant-form-item-label > label {
+  font-weight: 600;
+}
