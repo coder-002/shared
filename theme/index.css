@@ -47,6 +47,9 @@ body {
   min-width: 0;
   border-radius: 5px;
 }
+.ant-input-number {
+  background-color: inherit !important;
+}
 
 .ant-form-item-label > label {
   font-weight: 600;
@@ -84,6 +87,17 @@ body {
 
 .ant-form-horizontal:not(.force-horizontal) .ant-form-item-control {
   flex: unset;
+}
+
+.ant-input-number-input-wrap {
+  > input[role="spinbutton"] {
+    font-weight: 400;
+  }
+}
+
+.ant-input-number-input {
+  font-weight: 600;
+  padding: 4px 11px;
 }
 
 .ant-form-item-label {

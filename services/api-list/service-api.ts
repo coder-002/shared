@@ -13,4 +13,7 @@ export const api = {
     allMenus: "/menu",
     permittedMenus: "/menu/my-menu-permissions",
   },
+  member: {
+    memberSearch: "/member/search",
+  },
 };
