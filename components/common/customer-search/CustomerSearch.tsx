@@ -8,6 +8,7 @@ import { SearchResult } from "@/shared/model/search/Search";
 import { LocalizeFn } from "@/shared/context/LocaleContext";
 import { searchCustomer } from "@/shared/services/customer/service-customer";
 import { CustomerView } from "@/shared/model/customer/CustomerView";
+import { MoreInfo } from "@/shared/components/common/moreInfo/MoreInfo";
 
 interface Props {
   id?: string;
@@ -159,6 +160,13 @@ const CustomerSearch: React.FC<Props> = (props) => {
           }
         />
       </AutoComplete>
+
+      <MoreInfo
+        localize={props.localize}
+        customerId={customerId || 0}
+        show={props.moreInfo}
+        onClose={props.hideMoreInfo}
+      />
       <Modal
         cancelText={props.localize("Cancel")}
         open={instructions.length > 0}

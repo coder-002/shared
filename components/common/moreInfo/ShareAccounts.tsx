@@ -1,4 +1,4 @@
-import "./MoreInfo.scss";
+// import "./MoreInfo.scss";
 import { LocalizeFn } from "@/shared/context/LocaleContext.tsx";
 import { commaFormatNumber } from "@/shared/helper/numberHelper.ts";
 import { showErrorMessage } from "@/shared/helper/message-helper/messageHelper";
