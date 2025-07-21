@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { LocalizeFn } from "@/shared/context/LocaleContext.tsx";
 import { Button, Modal } from "antd";
 import { commaFormatNumber } from "@/shared/helper/numberHelper.ts";

@@ -16,7 +16,7 @@ import {
   Tooltip,
   Typography,
 } from "antd";
-
+import "./moreInfo.css";
 import { LocalizeFn } from "@/shared/context/LocaleContext.tsx";
 import { showLoadingMessage } from "@/shared/helper/message-helper/messageHelper.ts";
 import { InfoCircleOutlined, PrinterOutlined } from "@ant-design/icons";
