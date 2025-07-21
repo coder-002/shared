@@ -5,9 +5,9 @@ import { commaFormatNumber } from "@/shared/helper/numberHelper.ts";
 import { showErrorMessage } from "@/shared/helper/message-helper/messageHelper.ts";
 import { TerminatedAccount } from "@/shared/model/deposit/TerminatedAccount.ts";
 import { CustomerInfoDepAccount } from "@/shared/model/customer/Customer.ts";
-import Loader from "@/shared/components/Loader/Loader.tsx";
 import { ReportFrame } from "@/shared/components/common/ReportFrame.tsx";
 import { ChequeInfo } from "./ChequeInfo";
+import Loader from "@/shared/components/Loader/Loader";
 
 const DepositAccounts = (props: {
   data: CustomerInfoDepAccount[];

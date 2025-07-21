@@ -28,7 +28,7 @@ import {
 } from "@/shared/model/customer/Customer.ts";
 import { TerminatedAccount } from "@/shared/model/deposit/TerminatedAccount.ts";
 import { DetailTable } from "./DetailTable.tsx";
-import Loader from "../../Loader/Loader.tsx";
+import Loader from "@/shared/components/Loader/Loader.tsx";
 import { CorporateProfile } from "@/shared/model/customer/CorporateProfile.ts";
 import { CustomerKymView } from "@/shared/model/customer/CustomerKymView.ts";
 import { DepositAccounts } from "./DepositAccounts.tsx";

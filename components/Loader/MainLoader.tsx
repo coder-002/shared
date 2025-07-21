@@ -1,11 +1,13 @@
 import myIcon from "../assets/myIcon.svg";
-const Loader = () => {
+
+const MainLoader = () => {
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        height: "100vh",
         width: "100%",
       }}
     >
@@ -14,4 +16,4 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export default MainLoader;
