@@ -33,7 +33,6 @@ const Sidebar = () => {
   const { rootMenus, menus } = useMenu();
 
   const isLocalMenu = (menu: MenuPermissionView) => {
-    console.log(menu);
     if (menu.parentId === currentPageRootMenu?.menuId) {
       return !menu?.url?.includes("admin/day-close");
     }
@@ -225,7 +224,7 @@ const Sidebar = () => {
                 <div className="menu">
                   {isLocalMenu(c) ? (
                     <Link
-                      onClick={() => setCollapsed(true)}
+                      // onClick={() => setCollapsed(true)}
                       to={c.url.replace(basePath, "")}
                     >
                       {getLocalizedMenu(c.menuName, c.menuCode)}
@@ -247,13 +246,14 @@ const Sidebar = () => {
               key: c.menuCode,
               onClick: () => {
                 setCurrentMenuCode(c.menuCode);
+
                 // setVisible(false);
               },
               label: (
                 <div className="menu">
                   {isLocalMenu(c) ? (
                     <Link
-                      onClick={() => setCollapsed(true)}
+                      // onClick={() => setCollapsed(true)}
                       to={c.url.replace(basePath, "")}
                     >
                       {getLocalizedMenu(c.menuName, c.menuCode)}
@@ -277,6 +277,7 @@ const Sidebar = () => {
         }}
         collapsed={collapsed}
         width={270}
+        trigger={null}
         collapsedWidth="0"
         breakpoint="lg"
         onBreakpoint={(broken) => {
@@ -294,7 +295,7 @@ const Sidebar = () => {
         >
           <Typography.Text>{meta.nickName}</Typography.Text>
           <Typography.Text style={{ display: "inline", fontSize: "14px" }}>
-            {"TranDate"}:{" "}
+            {"TranDate"}:
             <strong>
               {meta.todayBS
                 .split("/")
