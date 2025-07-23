@@ -16,4 +16,11 @@ export const api = {
   member: {
     memberSearch: "/member/search",
   },
+  collector: {
+    getAllBranchCollector:
+      "/administration/employee-collector/{activeOnly}/{allBranch}",
+    getCollectorByBranchId:
+      "/core/collectors/by-branch/{activeOnly}/{branchId}",
+    getCollectorByStatus: "/core/collectors/dd/{activeOnly}/false",
+  },
 };
