@@ -1,5 +1,8 @@
 import { SearchResult } from "@/shared/model/search/Search";
-import { post } from "../ajaxService";
+import { get, post } from "../ajaxService";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../api-list/service-api";
+import { PersonalProfileInit } from "@/shared/model/customer/PersonalProfileInit";
 
 interface AutoCompleteResult {
   totalCount: number;
@@ -21,3 +24,17 @@ export async function searchCustomer(
 
   return res && res.data;
 }
+
+const getProfileInit = async () => {
+  return await get<PersonalProfileInit>(api.customer.getPersonalProfile);
+};
+
+const useGetProfileInit = () => {
+  return useQuery({
+    queryKey: [api.customer.getPersonalProfile],
+    queryFn: getProfileInit,
+    select: (response) => response.data,
+  });
+};
+
+export { useGetProfileInit };

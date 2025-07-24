@@ -23,4 +23,8 @@ export const api = {
       "/core/collectors/by-branch/{activeOnly}/{branchId}",
     getCollectorByStatus: "/core/collectors/dd/{activeOnly}/false",
   },
+
+  customer: {
+    getPersonalProfile: "/member/personal/init",
+  },
 };

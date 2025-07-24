@@ -1,38 +1,20 @@
 import { IEmployee } from "@/shared/model/employee/employee";
 import { get } from "../ajaxService";
-import { api } from "../api-list/service-api";
-import { useQuery } from "@tanstack/react-query";
 
 const getCollectors = async (activeOnly: boolean, allBranch?: boolean) => {
-  const textActiveOnly = activeOnly ? "true" : "false";
-  const textAllBranch = allBranch ? "true" : "false";
+  let url = `/administration/employee-collector/${activeOnly}/false`;
+  if (allBranch) url = `/administration/employee-collector/${activeOnly}/true`;
 
-  const url = api.collector.getAllBranchCollector
-    .replace("{activeOnly}", textActiveOnly)
-    .replace("{allBranch}", textAllBranch);
-  return await get<IEmployee[]>(url);
-};
-
-const useGetCollectors = (activeOnly: boolean, allBranch?: boolean) => {
-  return useQuery({
-    queryKey: ["collectors", activeOnly, allBranch],
-    queryFn: () => getCollectors(activeOnly, allBranch),
-    staleTime: 5 * 60 * 1000,
-    enabled: activeOnly !== undefined,
-    select: (data) => data.data,
-  });
+  const res = await get<IEmployee[]>(url);
+  return res && res.data;
 };
 
 const getCollectorsById = async (activeOnly: boolean, branchId: number) => {
-  const textActiveOnly = activeOnly ? "true" : "false";
-  const url = branchId
-    ? api.collector.getCollectorByBranchId
-        .replace("{activeOnly}", textActiveOnly)
-        .replace("{branchId}", branchId.toString())
-    : api.collector.getCollectorByStatus.replace(
-        "{activeOnly}",
-        textActiveOnly
-      );
+  let url = `/core/collectors/dd/${activeOnly}/false`;
+  if (branchId) url = `/core/collectors/by-branch/${activeOnly}/${branchId}`;
 
-  return await get<IEmployee[]>(url);
+  const res = await get<IEmployee[]>(url);
+  return res && res.data;
 };
+
+export { getCollectors, getCollectorsById };
