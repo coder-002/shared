@@ -1,10 +1,17 @@
-import React, { ReactNode, useMemo, useContext } from "react";
+import React, {
+  ReactNode,
+  useMemo,
+  useContext,
+  useCallback,
+  useState,
+  useEffect,
+} from "react";
 import {
   getCurrentRootMenu,
+  getMenus,
+  getPermittedMenus,
   Menu,
   MenuPermissionView,
-  useGetAllMenus,
-  useGetPermittedMenus,
 } from "@/shared/services/menu/service-menu.ts";
 import { useAuth } from "./AuthContext.tsx";
 import Loader from "../components/Loader/Loader.tsx";
@@ -26,55 +33,45 @@ const MenuContext = React.createContext<MenuContextValue>({});
 export const useMenu = () => useContext(MenuContext);
 
 export const MenuProvider = ({ children }: Props) => {
+  const [loading, setLoading] = useState(true);
   const userMeta = useAuth();
+  const [data, setData] = useState<MenuContextValue>({});
 
-  const {
-    data: allMenus,
-    isLoading: loadingAllMenus,
-    isSuccess: successAllMenus,
-  } = useGetAllMenus();
+  const init = useCallback(async () => {
+    if (userMeta) {
+      const [menus, allMenus] = await Promise.all([
+        getPermittedMenus(),
+        getMenus(),
+      ]);
+      if (menus && allMenus) {
+        const rootMenus = menus.filter((m: any) => !m.ParentId);
+        const currentRootMenu = getCurrentRootMenu(rootMenus);
 
-  const {
-    data: permittedMenus,
-    isLoading: loadingPermittedMenus,
-    isSuccess: successPermittedMenus,
-  } = useGetPermittedMenus();
-
-  const loading = loadingAllMenus || loadingPermittedMenus;
-
-  const contextValue: MenuContextValue = useMemo(() => {
-    if (successAllMenus && successPermittedMenus && userMeta) {
-      const rootMenus = permittedMenus?.filter((m) => !m.parentId) || [];
-      const currentRootMenu = getCurrentRootMenu(rootMenus);
-
-      const currentChildMenus =
-        currentRootMenu &&
-        permittedMenus
-          ?.filter((m) => m.parentId === currentRootMenu.menuId)
-          .sort((a, b) =>
-            a.menuType < b.menuType ? 1 : b.menuType < a.menuType ? -1 : 0
-          );
-
-      return {
-        allMenus,
-        menus: permittedMenus,
-        rootMenus,
-        currentRootMenu,
-        currentChildMenus,
-        menuLoaded: true,
-      };
+        setData({
+          allMenus,
+          menus,
+          rootMenus,
+          currentRootMenu,
+          currentChildMenus:
+            currentRootMenu &&
+            menus
+              .filter((m: any) => m.ParentId === currentRootMenu.menuId)
+              .sort((a, b) =>
+                a.menuType < b.menuType ? 1 : b.menuType < a.menuType ? -1 : 0
+              ),
+          menuLoaded: true,
+        });
+        setLoading(false);
+      }
     }
-    return {};
-  }, [
-    allMenus,
-    permittedMenus,
-    userMeta,
-    successAllMenus,
-    successPermittedMenus,
-  ]);
+  }, [userMeta]);
+
+  useEffect(() => {
+    init();
+  }, [init]);
 
   return (
-    <MenuContext.Provider value={contextValue}>
+    <MenuContext.Provider value={data}>
       {loading ? <Loader /> : children}
     </MenuContext.Provider>
   );

@@ -1,8 +1,9 @@
 import { Form, Select } from "antd";
 
 import { LocalizeFn } from "@/shared/context/LocaleContext.tsx";
-
-import { useGetAllBranches } from "@/shared/services/branches/service-branch";
+import { useCallback, useEffect, useState } from "react";
+import { IBranch } from "@/shared/model/branch/Branch";
+import { getBranches } from "@/shared/services/branches/service-branch";
 
 interface Props {
   label?: string;
@@ -16,9 +17,17 @@ interface Props {
 }
 
 export const BranchSelect = (props: Props) => {
-  const { data: branches } = useGetAllBranches();
-
+  const [branches, setBranches] = useState<IBranch[]>([]);
   const labelAlign = props.labelAlign || "left";
+
+  const init = useCallback(async () => {
+    const branches = await getBranches();
+    if (branches) setBranches(branches);
+  }, [setBranches]);
+
+  useEffect(() => {
+    init().then();
+  }, []);
 
   return (
     <Form.Item

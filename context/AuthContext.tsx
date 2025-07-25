@@ -1,4 +1,4 @@
-import { useGetMeta } from "@/shared/services/user/service-user";
+import { getMeta } from "@/shared/services/user/service-user";
 import {
   createContext,
   ReactNode,
@@ -7,9 +7,9 @@ import {
   useState,
 } from "react";
 import { useUserMetaStore } from "../shared/store/store";
-import { useGetCurrentBranch } from "../services/branches/service-branch";
 import Loader from "../components/Loader/Loader";
 import { Meta } from "../model/user/UserMeta";
+import { getCurrentBranch } from "../services/branches/service-branch";
 
 const defaultMeta: Meta = {
   allowAdjustmentEntry: false,
@@ -49,30 +49,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const userMetaKey = useUserMetaStore((state) => state.userMetaKey);
   const [authenticated, setAuthenticated] = useState<boolean>();
 
-  const { data: userMeta, isSuccess: isMetaLoaded } = useGetMeta();
-  const { data: branch, isSuccess: isBranchLoaded } = useGetCurrentBranch();
+  const init = async () => {
+    const [userMeta, branch] = await Promise.all([
+      getMeta(),
+      getCurrentBranch(),
+    ]);
+    if (userMeta) {
+      userMeta.today = new Date(userMeta.today);
+      userMeta.monthEnd = userMeta.monthEnd
+        ? new Date((userMeta.monthStart as any).split("T")[0])
+        : userMeta.monthStart;
+      userMeta.monthStart = userMeta.monthStart
+        ? new Date((userMeta.monthStart as any).split("T")[0])
+        : userMeta.monthStart;
 
-  const isReady = isMetaLoaded && isBranchLoaded && userMeta && branch;
+      userMeta.fullName = branch.fullName;
 
-  useEffect(() => {
-    if (isReady) {
-      const today = new Date(userMeta.today);
-      const monthStart = new Date(
-        (userMeta.monthStart as any)?.split?.("T")[0] || new Date()
-      );
-      const monthEnd = new Date(
-        (userMeta.monthEnd as any)?.split?.("T")[0] || new Date()
-      );
-      setMeta({
-        ...userMeta,
-        fullName: branch.fullName,
-        today,
-        monthStart,
-        monthEnd,
-      });
+      setMeta(userMeta);
       setAuthenticated(true);
     }
-  }, [userMetaKey, isReady, userMeta, branch]);
+  };
+
+  useEffect(() => {
+    init().then();
+  }, [userMetaKey]);
 
   return (
     <AuthContext.Provider value={meta}>

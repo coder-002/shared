@@ -1,6 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
 import { get } from "../ajaxService";
-import { api } from "../api-list/service-api";
 import { JSX } from "react";
 
 export interface Menu {
@@ -31,37 +29,27 @@ export interface MenuPermissionView {
   allowEdit: boolean;
 }
 
-const getAllMenus = async () => {
-  return await get<Menu[]>(api.menu.allMenus);
-};
+export async function getPermittedMenus() {
+  const res = await get<MenuPermissionView[]>(`menu/my-menu-permissions`);
+  return res && res.data;
+}
 
-export const useGetAllMenus = () => {
-  return useQuery({
-    queryKey: ["allMenus"],
-    queryFn: getAllMenus,
-    select: (response) => response.data,
-  });
-};
+export async function getMenus() {
+  const res = await get<Menu[]>("menu");
+  if (res) {
+    return res.data;
+  }
+  return null;
+}
 
-const getPermittedMenus = async () => {
-  return await get<MenuPermissionView[]>(api.menu.permittedMenus);
-};
-
-export const useGetPermittedMenus = () => {
-  return useQuery({
-    queryKey: ["permittedMenus"],
-    queryFn: getPermittedMenus,
-    select: (response) => response.data,
-  });
-};
-
-//gets the current base path of the module. for example for account module its "account"
-
+/**
+ * Gets the current basepath of the module. for example for account module its its "account"
+ */
 export function getCurrentRootMenu(rootMenus: MenuPermissionView[]) {
   const location = window.location;
 
   return rootMenus.find((m) =>
-    m.url.endsWith(`/${location.pathname.split("/")[1]}`)
+    m?.url?.endsWith(`/${location.pathname.split("/")[1]}`)
   );
 }
 export const getMenuName = (menu: MenuPermissionView) => {
