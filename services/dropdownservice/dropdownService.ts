@@ -39,9 +39,15 @@ const getCashRepositories = async () => {
   return res && res.data;
 };
 
+const getMyAllRepos = async () => {
+  const res = await get<CashRepository[]>("/cash-repository/my-repos");
+  return res && res.data;
+};
+
 export {
   getDepositProducts,
   getLoanProducts,
   getShareProducts,
   getCashRepositories,
+  getMyAllRepos,
 };
