@@ -3,18 +3,19 @@ export interface IBranch {
   branchCode: string;
   fullName: string;
   nickName: string;
-  registrationDate: string;
+  registrationDate: Date;
   registrationNumber: string;
   panNumber: string;
-  branchAddress: string;
+  street: string;
   city: string;
   state: string;
-  street: string;
   country: string;
   contactNumber: string;
   fax: string;
   email: string;
   url: string;
   isHeadOffice: boolean;
-  ibtGl: number;
+  ibtGl?: number;
+  creator?: number;
+  createdOn: Date;
 }

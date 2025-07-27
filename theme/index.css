@@ -127,3 +127,7 @@ body {
     white-space: nowrap;
   }
 }
+
+.ant-switch-handle {
+  border-radius: 50% !important;
+}

@@ -3,6 +3,8 @@ import { Product as LoanProduct } from "@/shared/model/loan/Product";
 import { Product as DepProduct } from "@/shared/model/deposit/Product";
 import { Product as ShareProducts } from "@/shared/model/share/Product";
 import { CashRepository } from "@/shared/model/repository/CashRepository";
+import { BankAccount } from "@/shared/model/account/BankAccount";
+import { Gender } from "@/shared/model/customer/PersonalProfileInit";
 
 const getDepositProducts = async (activeOnly: boolean) => {
   if (activeOnly) {
@@ -44,7 +46,29 @@ const getMyAllRepos = async () => {
   return res && res.data;
 };
 
+const getBankAccounts = async () => {
+  const res = await get<BankAccount[]>("/bank-account");
+  const banks: BankAccount[] = [];
+  if (res) {
+    res.data.forEach((x) => {
+      if (!(x.code == null)) {
+        x.bankName = `(${x.code}) ` + x.bankName;
+      }
+
+      banks.push(x);
+    });
+  }
+  return banks;
+};
+
+const getGenders = async () => {
+  const res = await get<Gender[]>("/gender");
+  return res && res.data;
+};
+
 export {
+  getGenders,
+  getBankAccounts,
   getDepositProducts,
   getLoanProducts,
   getShareProducts,

@@ -352,6 +352,7 @@ const AccountSearch = (props: Props) => {
         onSearch={onSearch}
         popupMatchSelectWidth={true}
         options={[...options]}
+        style={{ width: "100%" }}
         value={queryText}
         disabled={props.disabled}
         open={openDd}
@@ -386,6 +387,7 @@ const AccountSearch = (props: Props) => {
         }}
       >
         <Input
+          style={{ width: "100%", padding: "4px 11px", background: "inherit" }}
           onKeyUp={(e: any) => {
             if ((e.metaKey || e.ctrlKey) && e.keyCode == 113) {
               setShowSearch(true);
