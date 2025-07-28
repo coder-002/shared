@@ -1,0 +1,45 @@
+th {
+  padding: 5px 2px;
+  border: 1px solid #ccc;
+}
+
+td {
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+td.right-aligned,
+th.right-aligned {
+  text-align: right;
+}
+
+table {
+  width: 100%;
+}
+
+.table-container {
+  max-width: 100%;
+  max-height: 400px;
+  overflow: auto;
+}
+
+#rpt-table {
+  .tran-lvl-1,
+  .tran-lvl-2,
+  .tran-lvl-3,
+  .tran-lvl-4,
+  .tran-lvl-5,
+  .tran-lvl-6 {
+    cursor: pointer;
+  }
+}
+
+.rpt-table thead {
+  background-color: white;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  background-color: white;
+}

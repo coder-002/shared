@@ -5,6 +5,7 @@ import { Product as ShareProducts } from "@/shared/model/share/Product";
 import { CashRepository } from "@/shared/model/repository/CashRepository";
 import { BankAccount } from "@/shared/model/account/BankAccount";
 import { Gender } from "@/shared/model/customer/PersonalProfileInit";
+import { Group } from "@/shared/model/customer/Group";
 
 const getDepositProducts = async (activeOnly: boolean) => {
   if (activeOnly) {
@@ -66,7 +67,13 @@ const getGenders = async () => {
   return res && res.data;
 };
 
+const getCustomerGroups = async () => {
+  const res = await get<Group[]>("/micro-finance-group/all");
+  return res && res.data;
+};
+
 export {
+  getCustomerGroups,
   getGenders,
   getBankAccounts,
   getDepositProducts,
