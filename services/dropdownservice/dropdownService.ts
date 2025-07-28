@@ -6,6 +6,8 @@ import { CashRepository } from "@/shared/model/repository/CashRepository";
 import { BankAccount } from "@/shared/model/account/BankAccount";
 import { Gender } from "@/shared/model/customer/PersonalProfileInit";
 import { Group } from "@/shared/model/customer/Group";
+import { ChartOfAccount } from "@/shared/model/account/ChartOfAccount";
+import { Book } from "@/shared/model/transaction/Book";
 
 const getDepositProducts = async (activeOnly: boolean) => {
   if (activeOnly) {
@@ -72,6 +74,23 @@ const getCustomerGroups = async () => {
   return res && res.data;
 };
 
+const getGlAccountsByType = async (
+  root?: "Assets" | "Expenses" | "Incomes" | "Liabilities"
+) => {
+  const res = await get<ChartOfAccount[]>(`/glaccount/get/${root}`);
+  return res && res.data;
+};
+
+const getTranBooks = async () => {
+  const res = await get<Book[]>("/book");
+  return res && res.data;
+};
+
+const getGroupAccounts = async () => {
+  const res = await get<ChartOfAccount[]>("/glaccount");
+  return res && res.data;
+};
+
 export {
   getCustomerGroups,
   getGenders,
@@ -81,4 +100,7 @@ export {
   getShareProducts,
   getCashRepositories,
   getMyAllRepos,
+  getGlAccountsByType,
+  getTranBooks,
+  getGroupAccounts,
 };

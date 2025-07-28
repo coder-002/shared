@@ -1,0 +1,11 @@
+tr.parent-item {
+  td {
+    font-weight: 600;
+  }
+}
+
+tr:not(.parent-item) {
+  td {
+    font-weight: 400;
+  }
+}
